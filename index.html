@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="styles.css" />
+        <script src="script.js" defer></script>
+        <title>Weather App</title>
+    </head>
+    <body>
+        <form>
+            <label for="location-search">Location</label>
+            <input
+                type="search"
+                id="location-search"
+                name="location-search"
+                placeholder="Search"
+                size="30"
+                required
+            />
+            <button>Search!</button>
+        </form>
+        <div class="weather-data">
+            <div class="location"></div>
+            <div class="today">
+                <img class="icon"></img>
+                <div class="temp"></div>
+                <div class="feels-like"></div>
+                <div class="humidity"></div>
+                <div class="uv-index"></div>
+            </div>
+            <div class="next-five-days">
+                <div class="future-day-1">
+                    <img class="icon"></img>
+                    <div class="day"></div>
+                    <div class="min"></div>
+                    <div class="max"></div>
+                </div>
+                <div class="future-day-2">
+                    <img class="icon"></img>
+                    <div class="day"></div>
+                    <div class="min"></div>
+                    <div class="max"></div>
+                </div>
+                <div class="future-day-3">
+                    <img class="icon"></img>
+                    <div class="day"></div>
+                    <div class="min"></div>
+                    <div class="max"></div>
+                </div>
+                <div class="future-day-4">
+                    <img class="icon"></img>
+                    <div class="day"></div>
+                    <div class="min"></div>
+                    <div class="max"></div>
+                </div>
+                <div class="future-day-5">
+                    <img class="icon"></img>
+                    <div class="day"></div>
+                    <div class="min"></div>
+                    <div class="max"></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
