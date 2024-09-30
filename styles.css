@@ -127,7 +127,7 @@ body {
 }
 
 img {
-    height: 100px;
+    height: 225px;
 }
 
 .weather-data {
@@ -135,7 +135,7 @@ img {
     height: 500px;
     display: grid;
     grid-template-columns: auto;
-    grid-template-rows: 75px 200px 100px;
+    grid-template-rows: 75px 400px 300px;
 }
 
 .today {

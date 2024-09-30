@@ -1,6 +1,6 @@
 // api keys
 const weatherApiKey = "BKCM3AQLPSDCTQ6XRKB7E4LLX";
-const giphyApiKey = "PUVTZJCnBSopMFT96yyfhwbhrf3S2oyw";
+const giphyApiKey = "nY249DEnLK1QJYhYyJscb5jDdUIXND84";
 
 // document selectors
 const weatherDataDisplay = document.querySelector(".weather-data");
