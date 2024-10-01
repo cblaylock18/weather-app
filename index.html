@@ -8,55 +8,60 @@
         <title>Weather App</title>
     </head>
     <body>
+        <header>Weather App with Fun Gifs!</header>
         <form>
-            <label for="location-search">Location</label>
             <input
                 type="search"
                 id="location-search"
                 name="location-search"
-                placeholder="Search"
-                size="30"
+                placeholder="Search anywhere!"
                 required
             />
-            <button>Search!</button>
-        </form>
+            <div>
+                <button type="submit" class="search-button">Search</button>
+                <button type="button" class="current-location-button">Use My Current Location</button>
+           
+            </div> </form>
         <div class="weather-data">
             <div class="location"></div>
             <div class="today">
                 <img class="icon"></img>
+                <div class="conditions"></div>
                 <div class="temp"></div>
                 <div class="feels-like"></div>
-                <div class="humidity"></div>
-                <div class="uv-index"></div>
+                <div class="hum-uv">
+                    <div class="humidity"></div>
+                    <div class="uv-index"></div>
+                </div>
             </div>
             <div class="next-five-days">
                 <div class="future-day-1">
-                    <img class="icon"></img>
                     <div class="day"></div>
+                    <div class="conditions"></div>
                     <div class="min"></div>
                     <div class="max"></div>
                 </div>
                 <div class="future-day-2">
-                    <img class="icon"></img>
                     <div class="day"></div>
+                    <div class="conditions"></div>
                     <div class="min"></div>
                     <div class="max"></div>
                 </div>
                 <div class="future-day-3">
-                    <img class="icon"></img>
                     <div class="day"></div>
+                    <div class="conditions"></div>
                     <div class="min"></div>
                     <div class="max"></div>
                 </div>
                 <div class="future-day-4">
-                    <img class="icon"></img>
                     <div class="day"></div>
+                    <div class="conditions"></div>
                     <div class="min"></div>
                     <div class="max"></div>
                 </div>
                 <div class="future-day-5">
-                    <img class="icon"></img>
                     <div class="day"></div>
+                    <div class="conditions"></div>
                     <div class="min"></div>
                     <div class="max"></div>
                 </div>

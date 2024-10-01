@@ -7,6 +7,8 @@ const weatherDataDisplay = document.querySelector(".weather-data");
 const weatherDisplayLocation = weatherDataDisplay.querySelector(".location");
 const weatherDisplayToday = weatherDataDisplay.querySelector(".today");
 const weatherDisplayIcon = weatherDisplayToday.querySelector(".icon");
+const weatherDisplayConditions =
+    weatherDisplayToday.querySelector(".conditions");
 const weatherDisplayTemp = weatherDisplayToday.querySelector(".temp");
 const weatherDisplayFeelsLike =
     weatherDisplayToday.querySelector(".feels-like");
@@ -16,60 +18,7 @@ const weatherDisplayUVIndex = weatherDisplayToday.querySelector(".uv-index");
 const weatherDisplayFuture =
     weatherDataDisplay.querySelector(".next-five-days");
 
-// mapping arrays
-const weatherConditionGroups = {
-    Clear: ["Clear", "Diamond Dust"],
-    PartlyCloudy: [
-        "Partially cloudy",
-        "Sky Coverage Decreasing",
-        "Sky Coverage Increasing",
-        "Sky Unchanged",
-    ],
-    Overcast: ["Overcast"],
-    FoggyOrHazy: ["Fog", "Mist", "Freezing Fog", "Smoke Or Haze"],
-    LightRain: [
-        "Drizzle",
-        "Light Drizzle",
-        "Light Rain",
-        "Light Drizzle/Rain",
-        "Precipitation In Vicinity",
-    ],
-    HeavyRain: [
-        "Heavy Drizzle",
-        "Heavy Rain",
-        "Heavy Drizzle/Rain",
-        "Rain",
-        "Rain Showers",
-        "Hail Showers",
-    ],
-    Thunderstorm: [
-        "Thunderstorm",
-        "Thunderstorm Without Precipitation",
-        "Lightning Without Thunder",
-    ],
-    Snow: [
-        "Light Snow",
-        "Snow",
-        "Heavy Snow",
-        "Snow Showers",
-        "Blowing Or Drifting Snow",
-        "Snow And Rain Showers",
-        "Heavy Rain And Snow",
-        "Light Rain And Snow",
-    ],
-    FreezingRainOrSleet: [
-        "Freezing Drizzle/Freezing Rain",
-        "Light Freezing Drizzle/Freezing Rain",
-        "Heavy Freezing Drizzle/Freezing Rain",
-        "Light Freezing Rain",
-        "Heavy Freezing Rain",
-        "Ice",
-    ],
-    Hail: ["Hail", "Hail Showers"],
-    Windy: ["Squalls"],
-    DustStorm: ["Dust Storm"],
-    Tornado: ["Funnel Cloud/Tornado"],
-};
+// mapping function
 
 function getDayOfWeek(dateString) {
     // Split the date string into components (year, month, day)
@@ -98,7 +47,10 @@ function getDayOfWeek(dateString) {
 
 const form = document.querySelector("form");
 const searchLocation = document.querySelector("#location-search");
-const searchBtn = document.querySelector("button");
+const searchBtn = document.querySelector(".search-button");
+const currentLocationButton = document.querySelector(
+    ".current-location-button"
+);
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -156,7 +108,6 @@ const processWeatherData =
 async function displayWeatherData(location) {
     try {
         const processedWeatherData = await getWeatherData(location);
-
         if (processedWeatherData) {
             //update today's weather
             weatherDisplayLocation.textContent = processedWeatherData.location;
@@ -164,6 +115,8 @@ async function displayWeatherData(location) {
                 weatherDisplayIcon,
                 processedWeatherData.currentConditions
             );
+            weatherDisplayConditions.textContent =
+                processedWeatherData.currentConditions;
             weatherDisplayTemp.textContent = `Currently ${processedWeatherData.currentTemp} F`;
             weatherDisplayFeelsLike.textContent = `Feels like ${processedWeatherData.currentFeelsLike} F`;
             weatherDisplayHumidity.textContent = `Humidity: ${processedWeatherData.currentHumidity}%`;
@@ -182,10 +135,8 @@ async function displayWeatherData(location) {
                 weatherDisplayDay.querySelector(".max").textContent = `Low ${
                     processedWeatherData.nextFiveDays[i - 1].minTemp
                 } F`;
-                updateWeatherGif(
-                    weatherDisplayDay.querySelector(".icon"),
-                    processedWeatherData.nextFiveDays[i - 1].conditions
-                );
+                weatherDisplayDay.querySelector(".conditions").textContent =
+                    processedWeatherData.nextFiveDays[i - 1].conditions;
             }
         }
     } catch (error) {
@@ -227,10 +178,35 @@ async function updateWeatherGif(displayLocationToUpdate, conditions) {
         "https://media.giphy.com/media/xTk9ZvMnbIiIew7IpW/giphy.gif?cid=790b76114x3cwv00hwfhuz5i6jlo1ned1u2jag23kcggnql2&ep=v1_gifs_search&rid=giphy.gif&ct=g";
 
     const gifUrl = await getWeatherGif(conditions);
-
+    displayLocationToUpdate.alt = `a gif representing the current weather conditions: ${conditions}`;
     if (gifUrl) {
         displayLocationToUpdate.src = gifUrl;
     } else {
         displayLocationToUpdate.src = "./img/weather.jpg";
     }
 }
+
+// see if we can get user's location on initial page load, if not, default to London
+
+const geoFindMe = function seeIfWeCanLoadUsersLocation() {
+    let currentPosition = "London,UK";
+    function success(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        currentPosition = `${latitude},${longitude}`;
+        displayWeatherData(currentPosition);
+    }
+
+    function error() {
+        alert("Unable to get your current location.");
+    }
+
+    if (!navigator.geolocation) {
+        alert("Geolocation is not supported by your browser.");
+    } else {
+        navigator.geolocation.getCurrentPosition(success, error);
+    }
+};
+
+currentLocationButton.addEventListener("click", geoFindMe);
+displayWeatherData("London,UK");
